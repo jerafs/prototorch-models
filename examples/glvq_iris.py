@@ -1,6 +1,5 @@
 """GLVQ example using the Iris dataset."""
 
-import argparse
 import logging
 import warnings
 
@@ -8,7 +7,7 @@ import prototorch as pt
 import pytorch_lightning as pl
 import torch
 from prototorch.models import GLVQ, VisGLVQ2D
-from pytorch_lightning.utilities.seed import seed_everything
+from pytorch_lightning import seed_everything
 from pytorch_lightning.utilities.warnings import PossibleUserWarning
 from torch.optim.lr_scheduler import ExponentialLR
 from torch.utils.data import DataLoader
@@ -19,10 +18,6 @@ warnings.filterwarnings("ignore", category=PossibleUserWarning)
 if __name__ == "__main__":
     # Reproducibility
     seed_everything(seed=4)
-    # Command-line arguments
-    parser = argparse.ArgumentParser()
-    parser = pl.Trainer.add_argparse_args(parser)
-    args = parser.parse_args()
 
     # Dataset
     train_ds = pt.datasets.Iris(dims=[0, 2])
@@ -55,8 +50,7 @@ if __name__ == "__main__":
     vis = VisGLVQ2D(data=train_ds)
 
     # Setup trainer
-    trainer = pl.Trainer.from_argparse_args(
-        args,
+    trainer = pl.Trainer(
         callbacks=[
             vis,
         ],
