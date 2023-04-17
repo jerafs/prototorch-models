@@ -48,7 +48,6 @@ EXAMPLES = [
     "scikit-learn",
 ]
 TESTS = [
-    "codecov",
     "pytest",
 ]
 ALL = CLI + DEV + DOCS + EXAMPLES + TESTS
